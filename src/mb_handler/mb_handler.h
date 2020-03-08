@@ -35,7 +35,7 @@
 #define MBDEF_IM_MIN_RANGE 5
 #define MBDEF_RE_CENTRE 0
 #define MBDEF_IM_CENTRE 0
-#define MBDEF_BREAKOUT 0
+#define MBDEF_BREAKOUT 2
 #define MBDEF_MAX_IT 40
 #define MBDEF_POWER 2
 
