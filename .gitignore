@@ -1,1 +1,13 @@
-.vscode/settings.json
+# .gitignore
+
+
+
+# VS Code settings files
+.vscode/
+
+# Object files, libraries and executable
+*.o
+*.a
+*.so
+mandelbrot
+
