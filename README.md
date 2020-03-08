@@ -2,6 +2,10 @@
 
 Employs GLFW and OpenGL to render an interactive Mandelbrot set
 
+## Supported Platforms ##
+
+* Any Linux-based OS
+
 ## Installation ##
 
 ### Dependancies ###
