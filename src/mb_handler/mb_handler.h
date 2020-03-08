@@ -25,6 +25,22 @@
 
 
 
+/* MACROS */
+
+/* default mandelbrot parameters
+ *
+ * can be passed to mb_set_t constructor to create a default mandelbrot set
+ */
+#define MBDEF_RE_MIN_RANGE 5
+#define MBDEF_IM_MIN_RANGE 5
+#define MBDEF_RE_CENTRE 0
+#define MBDEF_IM_CENTRE 0
+#define MBDEF_BREAKOUT 0
+#define MBDEF_MAX_IT 40
+#define MBDEF_POWER 2
+
+
+
 /* STRUCTURES */
 
 /* struct __mb_set_t

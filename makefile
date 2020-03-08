@@ -32,8 +32,8 @@ src/glhelper/glhelper.a: src/glhelper/glhelper_input.o src/glhelper/glhelper_dra
 # mb_handler
 mb_handler: src/mb_handler/mb_handler.o
 
-# test
-test: test.o src/mb_handler/mb_handler.o src/glhelper/glhelper.a src/glad/glad.o
+# mandelbrot
+mandelbrot: mandelbrot.o src/mb_handler/mb_handler.o src/glhelper/glhelper.a src/glad/glad.o
 	$(CC) -ldl -lGL -lglfw -lm -o $@ $^
 
 
