@@ -2,7 +2,7 @@
 
 Employs GLFW and OpenGL to render an interactive Mandelbrot set
 
-# Installation #
+## Installation ##
 
 ### Dependancies ###
 
@@ -17,7 +17,7 @@ cd Mandelbrot
 make mandelbrot
 ```
 
-# Running the Program #
+## Running the Program ##
 
 ```
 ./mandelbrot
