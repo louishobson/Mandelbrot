@@ -4,12 +4,12 @@ Employs GLFW and OpenGL to render an interactive Mandelbrot set
 
 # Installation #
 
-## Dependancies ##
+### Dependancies ###
 
 * GLFW
 * OpenGL
 
-## Building from Source ##
+### Building from Source ###
 
 ```
 git clone https://github.com/louishobson/Mandelbrot.git
