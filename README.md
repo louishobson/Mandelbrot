@@ -19,5 +19,6 @@ make mandelbrot
 
 # Running the Program #
 
-`./mandelbrot`
-
+```
+./mandelbrot
+```
