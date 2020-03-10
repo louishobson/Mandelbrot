@@ -58,6 +58,19 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
         return NULL;
     }
 
+    /* get uniform locations (second, as is more likely to fail than creating buffers) */
+    if ( ( mb_set->uni_stretch = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_stretch" ) ) == -1 ||
+         ( mb_set->uni_translation = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_translation" ) ) == -1 ||
+         ( mb_set->uni_breakout = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_breakout" ) ) == -1 ||
+         ( mb_set->uni_max_it = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_max_it" ) ) == -1 ||
+         ( mb_set->uni_power = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_power" ) ) == -1 )
+    {
+        /* failed to get uniform location */
+        fprintf ( stderr, "MB ERROR: failed to get uniform locations\n" );
+        mb_destroy_set ( mb_set );
+        return NULL;
+    }
+
     /* set up vertex array object */
     if ( ( mb_set->vao = glh_create_vertex_array_object () ) == -1 ||
          ( mb_set->vbo = glh_create_vertex_buffer_object ( vertices, sizeof ( vertices ), GLH_BUFF_STATIC_DRAW ) ) == -1 ||
@@ -70,19 +83,6 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
         fprintf ( stderr, "MB ERROR: failed to set up vertex array object\n" );
         mb_destroy_set ( mb_set );
         return NULL;        
-    }
-
-    /* get uniform locations */
-    if ( ( mb_set->uni_stretch = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_stretch" ) ) == -1 ||
-         ( mb_set->uni_translation = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_translation" ) ) == -1 ||
-         ( mb_set->uni_breakout = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_breakout" ) ) == -1 ||
-         ( mb_set->uni_max_it = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_max_it" ) ) == -1 ||
-         ( mb_set->uni_power = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_power" ) ) == -1 )
-    {
-        /* failed to get uniform location */
-        fprintf ( stderr, "MB ERROR: failed to get uniform locations\n" );
-        mb_destroy_set ( mb_set );
-        return NULL;
     }
 
     /* set mandelbrot parameters */
