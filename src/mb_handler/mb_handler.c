@@ -46,6 +46,18 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
         1, 2, 3
     };
 
+    /* set up shader program (first, as is most likely to fail) */
+    if ( ( mb_set->vshader = glh_create_shader_from_path ( "./src/shader/generic_vertex.glsl", GLH_GLSL_VERTEX_SHADER ) ) == -1 ||
+         ( mb_set->fshader = glh_create_shader_from_path ( "./src/shader/mandelbrot_fragment.glsl", GLH_GLSL_FRAGMENT_SHADER ) ) == -1 ||
+         ( mb_set->sprogram = glh_create_shader_program ( mb_set->vshader, -1, mb_set->fshader ) ) == -1 ||
+         ( glh_use_shader_program ( mb_set->sprogram ) ) == -1 )
+    {
+        /* error creating shader program */
+        fprintf ( stderr, "MB ERROR: failed to create shader program\n" );
+        mb_destroy_set ( mb_set );
+        return NULL;
+    }
+
     /* set up vertex array object */
     if ( ( mb_set->vao = glh_create_vertex_array_object () ) == -1 ||
          ( mb_set->vbo = glh_create_vertex_buffer_object ( vertices, sizeof ( vertices ), GLH_BUFF_STATIC_DRAW ) ) == -1 ||
@@ -58,18 +70,6 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
         fprintf ( stderr, "MB ERROR: failed to set up vertex array object\n" );
         mb_destroy_set ( mb_set );
         return NULL;        
-    }
-
-    /* set up shader program */
-    if ( ( mb_set->vshader = glh_create_shader_from_path ( "./src/shader/generic_vertex.glsl", GLH_GLSL_VERTEX_SHADER ) ) == -1 ||
-         ( mb_set->fshader = glh_create_shader_from_path ( "./src/shader/mandelbrot_fragment.glsl", GLH_GLSL_FRAGMENT_SHADER ) ) == -1 ||
-         ( mb_set->sprogram = glh_create_shader_program ( mb_set->vshader, -1, mb_set->fshader ) ) == -1 ||
-         ( glh_use_shader_program ( mb_set->sprogram ) ) == -1 )
-    {
-        /* error creating shader program */
-        fprintf ( stderr, "MB ERROR: failed to create shader program\n" );
-        mb_destroy_set ( mb_set );
-        return NULL;
     }
 
     /* get uniform locations */
