@@ -23,11 +23,11 @@
 
 /* MACROS AND GLOBAL DEFINITIONS */
 
-/* MANDELBROT_ZOOM_COEFICIENT
+/* MANDELBROT_RANGE_COEFICIENT
  *
  * defines the change in minimum ranges of the set for each zoom
  */
-#define MANDELBROT_ZOOM_COEFICIENT 1.1
+#define MANDELBROT_RANGE_COEFICIENT 0.9
 
 /* MANDELBROT_IT_COEFICIENT
  *
@@ -103,23 +103,25 @@ void mandelbrot_scroll_callback ( glh_window_t window, const double xoffset, con
     const double xcfrac = ( xpos / viewport_size [ 2 ] ) - 0.5;
     const double ycfrac = ( ypos / viewport_size [ 3 ] ) - 0.5;
 
-    /* find the range multiple */
-    const double scale_multiple = pow ( MANDELBROT_ZOOM_COEFICIENT, yoffset );
+    /* find the scaling multiples */
+    const double range_from_def_multiple = pow ( MANDELBROT_RANGE_COEFICIENT, scroll_track );
+    const double range_from_curr_multiple = pow ( MANDELBROT_RANGE_COEFICIENT, yoffset );
+    const double it_from_def_multiple = pow ( MANDELBROT_IT_COEFICIENT, scroll_track );
 
     /* find the change in real and imaginary ranges */
-    const double re_range_change = ( mb_set->re_range / scale_multiple ) - mb_set->re_range;
-    const double im_range_change = ( mb_set->im_range / scale_multiple ) - mb_set->im_range;
+    const double re_range_change = ( mb_set->re_range * range_from_curr_multiple ) - mb_set->re_range;
+    const double im_range_change = ( mb_set->im_range * range_from_curr_multiple ) - mb_set->im_range;
 
     /* find the new centre */
     mb_set->re_centre -= re_range_change * xcfrac;
     mb_set->im_centre += im_range_change * ycfrac;
 
     /* find the new real and imaginary min ranges */
-    mb_set->re_min_range /= scale_multiple;
-    mb_set->im_min_range /= scale_multiple;
+    mb_set->re_min_range = MBDEF_RE_MIN_RANGE * range_from_def_multiple;
+    mb_set->im_min_range = MBDEF_IM_MIN_RANGE * range_from_def_multiple;
 
     /* change the maximum iterations */
-    mb_set->max_it = MBDEF_MAX_IT * pow ( MANDELBROT_IT_COEFICIENT, scroll_track );    
+    mb_set->max_it = MBDEF_MAX_IT * it_from_def_multiple;
 }
 
 /* mandelbrot_key_callback
