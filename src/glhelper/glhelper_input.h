@@ -118,7 +118,7 @@ int glh_set_mouse_move_callback ( glh_window_t window, glh_mouse_move_callback_t
  * return: 0 for success, -1 for failure
  */
 int glh_set_mouse_drag_calback ( glh_window_t window, glh_cursor_t cursor_style, glh_mouse_drag_callback_t callback );
-void __glh_mouse_drag_move_callback ( glh_window_t, const double xpos, const double ypos );
+void __glh_mouse_drag_move_callback ( glh_window_t window, const double xpos, const double ypos );
 
 /* glh_set_mouse_button_callback
  *
