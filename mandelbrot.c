@@ -5,6 +5,7 @@
  * 
  * creates window and mandelbrot objects, before setting up all the input callbacks, before entering an event-draw loop
  * cleans up after being closed or ESC is pressed
+ * 
  */
 
 
