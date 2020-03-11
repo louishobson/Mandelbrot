@@ -6,7 +6,7 @@ CFLAGS=-O3 -std=c99 -D_DEFAULT_SOURCE -fPIC -Isrc
 
 # ar setup
 AR=ar
-ARFLAGS=rc
+ARFLAGS=-rc
 
 # make all
 all: glad
