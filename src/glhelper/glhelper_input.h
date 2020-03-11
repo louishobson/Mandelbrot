@@ -164,7 +164,7 @@ int glh_get_key ( glh_window_t window, const int key );
  * 
  * return: 0 for success, -1 for failure
  */
-int glh_get_cursor_pos ( glh_window_t window, int * xpos, int * ypos );
+int glh_get_cursor_pos ( glh_window_t window, double * xpos, double * ypos );
 
 /* glh_get_mouse_button
  *
