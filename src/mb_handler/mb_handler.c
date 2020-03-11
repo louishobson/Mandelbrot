@@ -214,8 +214,8 @@ int mb_draw ( mb_set_t mb_set, glh_window_t window )
     mb_set->im_range = im_range;
 
     /* set translation */
-    const float re_translation = 0 + mb_set->re_centre - ( re_range / 2 );
-    const float im_translation = 0 + mb_set->im_centre - ( im_range / 2 );
+    const float re_translation = 0 + mb_set->re_centre - ( mb_set->re_range / 2 );
+    const float im_translation = 0 + mb_set->im_centre - ( mb_set->im_range / 2 );
 
     /* make window current and use shader program */
     glh_make_window_current ( window );
