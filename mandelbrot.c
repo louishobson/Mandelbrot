@@ -144,6 +144,7 @@ void mandelbrot_key_callback ( glh_window_t window, const int key, const int sca
         mb_set->breakout = MBDEF_BREAKOUT;
         mb_set->max_it = MBDEF_MAX_IT;
         mb_set->power = MBDEF_POWER;
+        scroll_track = 0.0;
     }
 }
 
