@@ -43,6 +43,12 @@ extern volatile int GLH_DRAG_ACTIVE;
  */
 extern volatile size_t GLH_DRAG_STYLE;
 
+/* volatile size_t GLH_DRAG_CALLBACK
+ *
+ * stores a pointer to the current drag callback
+ */
+extern volatile size_t GLH_DRAG_CALLBACK;
+
 
 
 /* TYPEDEFS */
