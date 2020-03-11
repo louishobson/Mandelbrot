@@ -28,6 +28,23 @@
 
 
 
+/* GLOBAL FLAGS AND MACROS */
+
+/* volatile int GLH_DRAG_ACTIVE
+ * 
+ * will be zero or one to define if drag mode is active
+ * is used by glh_set_mouse_drag_callback to determine when a drag event is occuring
+ */
+extern volatile int GLH_DRAG_ACTIVE;
+
+/* volatile size_t GLH_DRAG_STYLE
+ *
+ * stores a pointer to a cursor object to change the cursor to when dragging is occuring
+ */
+extern volatile size_t GLH_DRAG_STYLE;
+
+
+
 /* TYPEDEFS */
 
 /* typedef glh_cursor_t -> GLFWcursor * */
