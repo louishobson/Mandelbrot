@@ -193,6 +193,20 @@ int glh_set_uniform_vec2 ( const glh_object_t uniform, const float x, const floa
 int glh_set_uniform_vec3 ( const glh_object_t uniform, const float x, const float y, const float z );
 int glh_set_uniform_vec4 ( const glh_object_t uniform, const float x, const float y, const float z, const float w );
 
+/* glh_set_uniform_mat2
+ *
+ * assigned a 2x2 matrix to values
+ * 
+ * NOTE CHANGES THE UNIFORM IN THE CURRENTLY ACTIVE SHADER PROGRAM
+ * 
+ * uniform: location of the uniform (from glh_get_uniform_location)
+ * transpose: boolean as to whether to transpose the matrix
+ * values: array of floats of expected size: 4
+ * 
+ * return: 0 for success, -1 for failure
+ */
+int glh_set_uniform_mat2 ( const glh_object_t uniform, const int transpose, const float * values ); 
+
 /* glh_set_uniform_float
  *
  * assignes a float uniform a value
