@@ -35,6 +35,18 @@
  */
 #define MANDELBROT_IT_COEFICIENT 1.0375
 
+/* MANDELBROT_ROTATION_STEP
+ *
+ * defines the stop for each rotation of the set
+ */
+#define MANDELBROT_ROTATION_STEP acos ( -1 ) / 16.0
+
+/* MANDELBROT_MOVE_STEP
+ *
+ * defines the fraction of the screen pressing the arrow keys should cause the set to move
+ */
+#define MANDELBROT_MOVE_STEP 0.075
+
 /* volatile size_t mb_set_ptr
  *
  * int-casted pointer to the mandelbrot set currently being rendered
@@ -146,6 +158,20 @@ void mandelbrot_key_callback ( glh_window_t window, const int key, const int sca
     if ( glh_get_key ( window, GLFW_KEY_W ) == GLFW_PRESS ) mb_set->power += 1;
     if ( glh_get_key ( window, GLFW_KEY_Q ) == GLFW_PRESS ) mb_set->power -= 1;
 
+    /* if A/S, rotate the set */
+    if ( glh_get_key ( window, GLFW_KEY_A ) == GLFW_PRESS ) mb_set->rotation += MANDELBROT_ROTATION_STEP;
+    if ( glh_get_key ( window, GLFW_KEY_S ) == GLFW_PRESS ) mb_set->rotation -= MANDELBROT_ROTATION_STEP;
+
+    /* if +/-, zoom in and out */
+    if ( glh_get_key ( window, GLFW_KEY_EQUAL ) == GLFW_PRESS ) mandelbrot_scroll_callback ( window, 0, 1 );
+    if ( glh_get_key ( window, GLFW_KEY_MINUS ) == GLFW_PRESS ) mandelbrot_scroll_callback ( window, 0, -1 );
+
+    /* arrow keys to move */
+    if ( glh_get_key ( window, GLFW_KEY_LEFT ) == GLFW_PRESS ) mb_set->re_centre -= mb_set->re_range * MANDELBROT_MOVE_STEP;
+    if ( glh_get_key ( window, GLFW_KEY_UP ) == GLFW_PRESS ) mb_set->im_centre += mb_set->im_range * MANDELBROT_MOVE_STEP;
+    if ( glh_get_key ( window, GLFW_KEY_RIGHT ) == GLFW_PRESS ) mb_set->re_centre += mb_set->re_range * MANDELBROT_MOVE_STEP;
+    if ( glh_get_key ( window, GLFW_KEY_DOWN ) == GLFW_PRESS ) mb_set->im_centre -= mb_set->im_range * MANDELBROT_MOVE_STEP;
+
     /* if R, reset to defaults */
     if ( glh_get_key ( window, GLFW_KEY_R ) == GLFW_PRESS )
     {
@@ -156,6 +182,7 @@ void mandelbrot_key_callback ( glh_window_t window, const int key, const int sca
         mb_set->breakout = MBDEF_BREAKOUT;
         mb_set->max_it = MBDEF_MAX_IT;
         mb_set->power = MBDEF_POWER;
+        mb_set->rotation = MBDEF_ROTATION;
         scroll_track = 0.0;
     }
 }
@@ -181,8 +208,7 @@ int main ()
     /* construct mandelbrot set from defaults */
     mb_set_t mb_set = mb_create_set ( MBDEF_RE_MIN_RANGE, MBDEF_IM_MIN_RANGE,
                                       MBDEF_RE_CENTRE,    MBDEF_IM_CENTRE,
-                                      MBDEF_BREAKOUT,     MBDEF_MAX_IT,
-                                      MBDEF_POWER );
+                                      MBDEF_BREAKOUT,     MBDEF_MAX_IT );
 
     /* set the global variable to the pointer to the set */
     mb_set_ptr = ( size_t ) mb_set;
