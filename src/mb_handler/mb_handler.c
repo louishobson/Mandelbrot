@@ -22,7 +22,7 @@
  * 
  * return: pointer mb_set_t set != NULL on success, == NULL on failure
  */
-mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, const float re_centre, const float im_centre, const float breakout, const float max_it, const int power )
+mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, const float re_centre, const float im_centre, const float breakout, const float max_it )
 {
     /* check glad is initialised */
     __GLH_GLAD_INIT_CHECK__ ( 1, NULL, "MB ERROR: glad must be initialised before creating a mandelbrot set" );
@@ -63,7 +63,8 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
          ( mb_set->uni_translation = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_translation" ) ) == -1 ||
          ( mb_set->uni_breakout = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_breakout" ) ) == -1 ||
          ( mb_set->uni_max_it = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_max_it" ) ) == -1 ||
-         ( mb_set->uni_power = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_power" ) ) == -1 )
+         ( mb_set->uni_power = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_power" ) ) == -1 ||
+         ( mb_set->uni_rotation = glh_get_uniform_location ( mb_set->sprogram, "mandelbrot_rotation" ) ) == -1 )
     {
         /* failed to get uniform location */
         fprintf ( stderr, "MB ERROR: failed to get uniform locations\n" );
@@ -92,7 +93,8 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
     mb_set->im_centre = im_centre;
     mb_set->breakout = breakout;
     mb_set->max_it = max_it;
-    mb_set->power = power;
+    mb_set->power = MBDEF_POWER;
+    mb_set->rotation = MBDEF_ROTATION;
 
     /* set up the mutex */
     pthread_mutex_init ( &mb_set->draw_mutex, NULL );
@@ -136,6 +138,8 @@ mb_set_t __mb_create_empty_set ()
     mb_set->im_centre = 0;
 
     mb_set->power = 0;
+
+    mb_set->rotation = 0;
 
     memset ( &mb_set->draw_mutex, 0, sizeof ( pthread_mutex_t ) );
 
@@ -221,12 +225,20 @@ int mb_draw ( mb_set_t mb_set, glh_window_t window )
     glh_make_window_current ( window );
     glh_use_shader_program ( mb_set->sprogram );
 
+    /* create rotation matrix */
+    float rotation_matirx [ 4 ] =
+    {
+        cos ( mb_set->rotation ), -sin ( mb_set->rotation ),
+        sin ( mb_set->rotation ),  cos ( mb_set->rotation )    
+    };
+
     /* set uniforms */
     glh_set_uniform_vec4 ( mb_set->uni_stretch, stretch, stretch, 1.0f, 1.0f );
     glh_set_uniform_vec4 ( mb_set->uni_translation, re_translation, im_translation, 0.0f, 0.0f );
     glh_set_uniform_float ( mb_set->uni_breakout, mb_set->breakout );
     glh_set_uniform_int ( mb_set->uni_max_it, ( int ) mb_set->max_it );
     glh_set_uniform_int ( mb_set->uni_power, mb_set->power );
+    glh_set_uniform_mat2 ( mb_set->uni_rotation, 0, rotation_matirx );
 
     /* clear, render and swap buffers */
     glh_set_clear_color ( 1.0f, 1.0f, 1.0f, 1.0f );

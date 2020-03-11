@@ -38,6 +38,7 @@
 #define MBDEF_BREAKOUT 2.0
 #define MBDEF_MAX_IT 40.0
 #define MBDEF_POWER 2
+#define MBDEF_ROTATION 0.0
 
 
 
@@ -67,6 +68,7 @@ typedef struct
     glh_object_t uni_breakout;
     glh_object_t uni_max_it;
     glh_object_t uni_power;
+    glh_object_t uni_rotation;
 
     /* MANDELBROT PARAMETERS */
 
@@ -88,6 +90,9 @@ typedef struct
 
     /* power */
     int power;
+
+    /* rotation (in degrees) */
+    float rotation;
 
     /* OTHER ATTRIBUTES */
 
@@ -118,7 +123,7 @@ typedef __mb_set_t * mb_set_t;
  * 
  * return: mb_set_t set != NULL on success, == NULL on failure
  */
-mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, const float re_centre, const float im_centre, const float breakout, const float max_it, const int power );
+mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, const float re_centre, const float im_centre, const float breakout, const float max_it );
 
 /* __mb_create_empty_set
  *
