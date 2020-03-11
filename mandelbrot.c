@@ -121,6 +121,12 @@ void mandelbrot_scroll_callback ( glh_window_t window, const double xoffset, con
 /* mandelbrot_key_callback
  *
  * callback for when a key is pressed
+ * 
+ * window: window the key was pressed on
+ * key: the key pressed
+ * scancode: key-specific scancode
+ * action: the action
+ * mods: the modifier bits
  */
 void mandelbrot_key_callback ( glh_window_t window, const int key, const int scancode, const int action, const int mods )
 {
