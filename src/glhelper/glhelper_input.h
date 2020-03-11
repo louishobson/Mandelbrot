@@ -131,7 +131,9 @@ int glh_set_mouse_move_callback ( glh_window_t window, glh_mouse_move_callback_t
  *
  * set a callback for dragging on te screen
  * this is where the left mouse button is held while moving the mouse
- * NOTE: this will override any mouse move callbacks previously set
+ * NOTE: this will override any mouse move and mouse button callbacks previously set
+ * ALSO NOTE: the mouse button callback can be changed afterwards, however it MUST alter GLH_DRAG_ACTIVE 
+ *            between 0 and 1 for whether the left mouse button is currently active
  *
  * window: the window to apply the callback to
  * cursor_style: the style of the cursor when dragging is in process
