@@ -180,6 +180,9 @@ int glh_set_mouse_drag_calback ( glh_window_t window, glh_cursor_t cursor_style,
         /* unset other callbacks */
         glh_set_mouse_move_callback ( window, NULL );
         glh_set_mouse_button_callback ( window, NULL );
+
+        /* set cursor to default */
+        glh_set_cursor ( window, NULL );
     }
 
     /* return 0 for success */
