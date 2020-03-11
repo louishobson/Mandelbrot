@@ -17,12 +17,13 @@ out vec4 FragColor;
 
 /* UNIFORMS */
 
-/* mandelbrot_stretch/translation
+/* mandelbrot_stretch/translation/rotation
  * 
  * uniforms to be applied to a fragment to transform it to a value of c for the mandelbrot function
  */
 uniform vec4 mandelbrot_stretch;
 uniform vec4 mandelbrot_translation;
+uniform mat2 mandelbrot_rotation;
 
 /* mandelbrot_breakout
  *
@@ -40,7 +41,7 @@ uniform int mandelbrot_max_it;
  * 
  * uniform for the power of z
  */
- uniform int mandelbrot_power;
+uniform int mandelbrot_power;
 
 
 
@@ -128,7 +129,7 @@ vec2 complex_pow ( const vec2 z, const int p )
  *
  * return: the transformed vector
  */
-vec4 transform_vector ( const vec4 initial_vector, const vec4 stretch, const vec4 translation )
+vec4 transform_vector ( const vec4 initial_vector, const vec4 stretch, const vec4 translation, const mat2 rotation )
 {
     /* create new vector */
     vec4 transformed_vector = initial_vector;
@@ -136,6 +137,8 @@ vec4 transform_vector ( const vec4 initial_vector, const vec4 stretch, const vec
     transformed_vector *= stretch;
     /* apply translation */
     transformed_vector += translation;
+    /* apply rotation */
+    transformed_vector.xy = rotation * transformed_vector.xy;
     /* return the new vector */
     return transformed_vector;
 }
@@ -201,7 +204,7 @@ int iterate_on_multibrot ( const vec2 c, const float breakout, const int max_it,
 void main ()
 {
     /* transform frag coords */
-    vec4 new_frag_coord = transform_vector ( gl_FragCoord, mandelbrot_stretch, mandelbrot_translation );
+    vec4 new_frag_coord = transform_vector ( gl_FragCoord, mandelbrot_stretch, mandelbrot_translation, mandelbrot_rotation );
     /* if mandelbrot_power == 2, use normal function */
     float mandelbrot_constant;
     if ( mandelbrot_power == 2 ) mandelbrot_constant = iterate_on_mandelbrot ( new_frag_coord.xy, mandelbrot_breakout, mandelbrot_max_it );
