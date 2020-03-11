@@ -1,7 +1,10 @@
 /*
  * mandelbrot.c
  * 
- * activate the window and drawing of the mandelbrot
+ * contains the main () entry point for the mandelbrot binary
+ * 
+ * creates window and mandelbrot objects, before setting up all the input callbacks, before entering an event-draw loop
+ * cleans up after being closed or ESC is pressed
  */
 
 
@@ -21,7 +24,7 @@
 
 /* MANDELBROT_ZOOM_COEFICIENT
  *
- * defines how fast zooming should occur
+ * defines the change in minimum ranges of the set for each zoom
  */
 #define MANDELBROT_ZOOM_COEFICIENT 1.1
 
@@ -33,13 +36,13 @@
 
 /* volatile size_t mb_set_ptr
  *
- * the mandelbrot set currently being rendered
+ * int-casted pointer to the mandelbrot set currently being rendered
  */
 volatile size_t mb_set_ptr = 0;
 
 /* volatile double scroll_track
  *
- * keep a track of how zoomed in the mandelbrot set is
+ * keeps a track of how zoomed in the mandelbrot set is, through summing the yoffsets in the scroll callback
  */
 volatile double scroll_track = 0.0;
 
@@ -156,7 +159,8 @@ void mandelbrot_key_callback ( glh_window_t window, const int key, const int sca
 
 
 
-/* main */
+/* MAIN */
+
 int main ()
 {
     /* init glfw and create window */
