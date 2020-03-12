@@ -13,16 +13,24 @@ Employs GLFW and OpenGL to render an interactive Mandelbrot set
 * GLFW
 * OpenGL
 
-### Building from Source ###
+### Installation ###
 
 ```
 git clone https://github.com/louishobson/Mandelbrot.git
 cd Mandelbrot
-make mandelbrot
+make
+make install
+```
+
+### Uninstallation ###
+
+```
+make uninstall
+make revert
 ```
 
 ## Running the Program ##
 
 ```
-./mandelbrot
+mandelbrot
 ```
