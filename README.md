@@ -31,6 +31,12 @@ make revert
 
 ## Running the Program ##
 
+Having run `make install`:
+
 ```
 mandelbrot
 ```
+
+Otherwise, within the installation directory:
+
+```./mandelbrot```
