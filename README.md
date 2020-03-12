@@ -39,4 +39,6 @@ mandelbrot
 
 Otherwise, within the installation directory:
 
-```./mandelbrot```
+```
+./mandelbrot
+```
