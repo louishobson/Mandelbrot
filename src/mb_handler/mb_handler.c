@@ -47,8 +47,8 @@ mb_set_t mb_create_set ( const float re_min_range, const float im_min_range, con
     };
 
     /* set up shader program (first, as is most likely to fail) */
-    if ( ( mb_set->vshader = glh_create_shader_from_path ( "./src/shader/generic_vertex.glsl", GLH_GLSL_VERTEX_SHADER ) ) == -1 ||
-         ( mb_set->fshader = glh_create_shader_from_path ( "./src/shader/mandelbrot_fragment.glsl", GLH_GLSL_FRAGMENT_SHADER ) ) == -1 ||
+    if ( ( mb_set->vshader = glh_create_shader_from_path ( MANDELBROT_VERTEX_SHADER_PATH, GLH_GLSL_VERTEX_SHADER ) ) == -1 ||
+         ( mb_set->fshader = glh_create_shader_from_path ( MANDELBROT_FRAGMENT_SHADER_PATH, GLH_GLSL_FRAGMENT_SHADER ) ) == -1 ||
          ( mb_set->sprogram = glh_create_shader_program ( mb_set->vshader, -1, mb_set->fshader ) ) == -1 ||
          ( glh_use_shader_program ( mb_set->sprogram ) ) == -1 )
     {

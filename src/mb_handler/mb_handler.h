@@ -27,8 +27,39 @@
 
 /* MACROS */
 
-/* default mandelbrot parameters
+/* MANDELBROT_INSTALL_PATH
  *
+ * defines the directory where the mandelbrot source is stored
+ * can be set during compilation using -DMANDELBROT_INSTALL_PATH='"/path/"'
+ */
+#ifndef MANDELBROT_INSTALL_PATH
+#define MANDELBROT_INSTALL_PATH "."
+#endif
+
+/* MANDELBROT_SHADER_PATH
+ *
+ * defines the directory in which to find shaders
+ * can be set during compilation using -DMANDELBROT_SHADER_PATH='"/path/"'
+ */
+#ifndef MANDELBROT_SHADER_PATH
+#define MANDELBROT_SHADER_PATH MANDELBROT_INSTALL_PATH "/src/shader"
+#endif
+
+/* MANDELBROT_VERTEX/FRAGMENT_SHADER_PATH
+ *
+ * defines the location of the vertex/fragment shaders
+ * can be set during compilation using -DMANDELBROT_VERTEX/FRAGMENT_SHADER_PATH='"/path/file"'
+ */
+#ifndef MANDELBROT_VERTEX_SHADER_PATH
+#define MANDELBROT_VERTEX_SHADER_PATH MANDELBROT_SHADER_PATH "/generic_vertex.glsl"
+#endif
+#ifndef MANDELBROT_FRAGMENT_SHADER_PATH
+#define MANDELBROT_FRAGMENT_SHADER_PATH MANDELBROT_SHADER_PATH "/mandelbrot_fragment.glsl"
+#endif
+
+/* MBDEF_...
+ * 
+ * default mandelbrot parameters
  * can be passed to mb_set_t constructor to create a default mandelbrot set
  */
 #define MBDEF_RE_MIN_RANGE 5.0
