@@ -46,7 +46,7 @@ install:
 # remove the link created by the install target
 .PHONY: uninstall
 uninstall:
-	@ rm -fv /usr/local/bin/mandelbrot || echo "ERROR: could not remove link - do you have permission?
+	@ rm -fv /usr/local/bin/mandelbrot || echo "ERROR: could not remove link - do you have permission?"
 
 
 
