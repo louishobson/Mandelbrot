@@ -42,3 +42,9 @@ Otherwise, within the installation directory:
 ```
 ./mandelbrot
 ```
+
+## Screenshots ##
+
+![Full Mandelbrot Set](scrot.png)
+
+![Zoomed-in Mandelbrot Set](scrot2.png)
